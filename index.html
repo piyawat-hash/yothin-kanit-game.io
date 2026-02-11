@@ -2,208 +2,274 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>เกมดอกเบี้ยทบต้น</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+<title>เกมดอกเบี้ยทบต้น Ultimate Classroom Edition</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; font-family: 'Kanit', sans-serif; }
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-.app {
-    background: white;
-    width: 100%;
-    max-width: 520px;
-    border-radius: 24px;
-    padding: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-}
-h1 { text-align: center; margin: 0; color: #4a148c; }
-.subtitle { text-align: center; font-size: 14px; color: #666; margin-bottom: 10px; }
-
-input, button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    font-size: 16px;
-    border-radius: 12px;
-}
-input { border: 1px solid #ccc; }
-button {
-    border: none;
-    background: linear-gradient(135deg, #ff9800, #ff5722);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
+*{box-sizing:border-box;font-family:'Kanit',sans-serif}
+body{
+  margin:0;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:#fff;
+  min-height:100vh;
 }
 
-.status {
-    display: flex;
-    justify-content: space-between;
-    background: #ede7f6;
-    padding: 10px;
-    border-radius: 14px;
-    margin-top: 10px;
+header{
+  text-align:center;
+  padding:20px;
+  font-size:32px;
+  font-weight:800;
 }
 
-.card {
-    background: #fafafa;
-    border-radius: 18px;
-    padding: 15px;
-    margin-top: 15px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
 }
 
-.result { font-weight: 600; margin-top: 10px; }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 14px;
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
-th, td {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: center;
-}
-th { background: #ede7f6; }
 
-.leaderboard {
-    background: #fffde7;
-    border-radius: 18px;
-    padding: 15px;
-    margin-top: 20px;
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  margin:5px;
+  background:#00e5ff;
+}
+
+button:hover{transform:scale(1.05)}
+
+input,select{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin:5px;
+}
+
+.player{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:8px 0;
+}
+
+.player img{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #fff;
+}
+
+.leaderboard div{
+  padding:6px;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+.theme-roblox{background:linear-gradient(135deg,#ff0000,#990000)}
+.theme-minecraft{background:linear-gradient(135deg,#3c9a3c,#1e5f1e)}
+.theme-thai{background:linear-gradient(135deg,#00247d,#cf142b)}
+
+.question{
+  font-size:22px;
+  margin:15px 0;
 }
 </style>
 </head>
-
 <body>
 
-<div class="app">
-    <h1>💰 เกมดอกเบี้ยทบต้น</h1>
-    <div class="subtitle">Compound Interest Competition Game</div>
+<header>💰 เกมดอกเบี้ยทบต้น Ultimate Classroom</header>
 
-    <input id="playerName" placeholder="ชื่อผู้เล่น">
+<div class="container">
 
-    <div class="status">
-        <div>ด่าน: <span id="level">1</span></div>
-        <div>คะแนน: <span id="score">0</span></div>
-    </div>
+<!-- สูตร -->
+<div class="card">
+<h2>📘 สูตรดอกเบี้ยทบต้น</h2>
+<p><b>A = P(1 + r/n)^(nt)</b></p>
+<p>
+A = เงินรวม<br>
+P = เงินต้น<br>
+r = อัตราดอกเบี้ยต่อปี<br>
+n = จำนวนครั้งที่ทบต่อปี<br>
+t = จำนวนปี
+</p>
+</div>
 
-    <div class="card">
-        <p>เงินต้น: <b><span id="p"></span></b> บาท</p>
-        <p>ดอกเบี้ย: <b><span id="r"></span></b>% ต่อปี</p>
-        <p>ระยะเวลา: <b><span id="t"></span></b> ปี</p>
+<!-- สร้างผู้เล่น -->
+<div class="card">
+<h2>🧑‍🎓 ผู้เล่น</h2>
+<input id="name" placeholder="ชื่อผู้เล่น">
+<input type="file" id="avatar" accept="image/*">
+<button onclick="addPlayer()">เพิ่มผู้เล่น</button>
+<div id="players"></div>
+</div>
 
-        <input type="number" id="guess" placeholder="ทายเงินสุดท้าย">
-        <button onclick="check()">ส่งคำตอบ</button>
-        <button id="nextBtn" onclick="nextStage()" style="display:none;">ด่านถัดไป ▶️</button>
+<!-- โหมด -->
+<div class="card">
+<h2>🎮 โหมดเกม</h2>
+<select id="difficulty">
+<option value="easy">ง่าย</option>
+<option value="medium">กลาง</option>
+<option value="hard">ยาก</option>
+</select>
+<button onclick="startGame()">เริ่มเกม</button>
+</div>
 
-        <div class="result" id="result"></div>
-    </div>
+<!-- คำถาม -->
+<div class="card" id="game" style="display:none">
+<h2>❓ คำถาม</h2>
+<div class="question" id="question"></div>
+<input id="answer" placeholder="คำตอบ">
+<button onclick="submitAnswer()">ตอบ</button>
+</div>
 
-    <div id="table"></div>
+<!-- Leaderboard -->
+<div class="card">
+<h2>🏆 Leaderboard</h2>
+<div id="leaderboard" class="leaderboard"></div>
+<button onclick="exportCSV()">Export CSV</button>
+</div>
 
-    <div class="leaderboard">
-        <h3>🏆 ตารางอันดับ</h3>
-        <table id="leaderboardTable">
-            <tr><th>อันดับ</th><th>ชื่อ</th><th>คะแนน</th></tr>
-        </table>
-    </div>
+<!-- ธีม -->
+<div class="card">
+<h2>🎨 ธีม</h2>
+<button onclick="setTheme('default')">Default</button>
+<button onclick="setTheme('roblox')">Roblox</button>
+<button onclick="setTheme('minecraft')">Minecraft</button>
+<button onclick="setTheme('thai')">Thai</button>
+</div>
+
 </div>
 
 <script>
-let level = 1, score = 0;
-let P, r, t, ans;
-let isAnswered = false;
+let players=[];
+let currentAnswer=0;
 
-function newStage() {
-    P = Math.floor(Math.random() * 9000) + 1000;
-    r = Math.floor(Math.random() * 6) + 3;
-    t = Math.floor(Math.random() * 6) + 2;
-    ans = P * Math.pow(1 + r / 100, t);
+function addPlayer(){
+  const name=document.getElementById('name').value;
+  const file=document.getElementById('avatar').files[0];
+  if(!name)return;
 
-    document.getElementById("p").textContent = P;
-    document.getElementById("r").textContent = r;
-    document.getElementById("t").textContent = t;
-    document.getElementById("level").textContent = level;
-    document.getElementById("score").textContent = score;
-
-    document.getElementById("guess").value = "";
-    document.getElementById("result").innerHTML = "";
-    document.getElementById("table").innerHTML = "";
-    document.getElementById("nextBtn").style.display = "none";
-
-    isAnswered = false;
-}
-
-function check() {
-    if (isAnswered) return;
-
-    const g = parseFloat(document.getElementById("guess").value);
-    const diff = Math.abs(ans - g);
-
-    let point = diff < 100 ? 10 : diff < 500 ? 5 : diff < 1000 ? 2 : 0;
-    score += point;
-
-    document.getElementById("result").innerHTML =
-        `เงินจริง: ${ans.toFixed(2)} บาท<br>
-         คลาดเคลื่อน: ${diff.toFixed(2)} บาท<br>
-         ได้คะแนน: +${point}`;
-
-    showTable();
-    document.getElementById("score").textContent = score;
-    document.getElementById("nextBtn").style.display = "block";
-    isAnswered = true;
-}
-
-function nextStage() {
-    saveScore();
-    level++;
-    newStage();
-}
-
-function showTable() {
-    let money = P;
-    let html = `<div class="card"><b>📊 ตารางเงินเพิ่มรายปี</b><table>
-        <tr><th>ปี</th><th>จำนวนเงิน (บาท)</th></tr>`;
-    for (let i = 1; i <= t; i++) {
-        money *= (1 + r / 100);
-        html += `<tr><td>${i}</td><td>${money.toFixed(2)}</td></tr>`;
-    }
-    html += "</table></div>";
-    document.getElementById("table").innerHTML = html;
-}
-
-function saveScore() {
-    const name = document.getElementById("playerName").value || "ไม่ระบุชื่อ";
-    let board = JSON.parse(localStorage.getItem("leaderboard")) || [];
-    board.push({ name, score });
-    board.sort((a, b) => b.score - a.score);
-    board = board.slice(0, 10);
-    localStorage.setItem("leaderboard", JSON.stringify(board));
-    renderLeaderboard();
-}
-
-function renderLeaderboard() {
-    const board = JSON.parse(localStorage.getItem("leaderboard")) || [];
-    const table = document.getElementById("leaderboardTable");
-    table.innerHTML = "<tr><th>อันดับ</th><th>ชื่อ</th><th>คะแนน</th></tr>";
-    board.forEach((p, i) => {
-        table.innerHTML += `<tr><td>${i+1}</td><td>${p.name}</td><td>${p.score}</td></tr>`;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    players.push({
+      name,
+      money:1000,
+      score:0,
+      avatar:e.target.result
     });
+    renderPlayers();
+  };
+  if(file) reader.readAsDataURL(file);
+  else{
+    players.push({name,money:1000,score:0,avatar:''});
+    renderPlayers();
+  }
 }
 
-renderLeaderboard();
-newStage();
+function renderPlayers(){
+  const div=document.getElementById('players');
+  div.innerHTML='';
+  players.forEach(p=>{
+    div.innerHTML+=`
+      <div class="player">
+        <img src="${p.avatar||'https://via.placeholder.com/45'}">
+        ${p.name} | 💰 ${p.money} | ⭐ ${p.score}
+      </div>`;
+  });
+  renderLeaderboard();
+}
+
+function randomQuestion(){
+  const diff=document.getElementById('difficulty').value;
+  let P=1000;
+  let r=0.05;
+  let t=1;
+
+  if(diff==='medium'){r=0.1;t=2}
+  if(diff==='hard'){r=0.15;t=3}
+
+  const A=P*Math.pow(1+r,t);
+  currentAnswer=Math.round(A);
+
+  document.getElementById('question').innerText=
+  `เงินต้น ${P} บาท ดอกเบี้ย ${r*100}% ${t} ปี = ?`;
+}
+
+function startGame(){
+  document.getElementById('game').style.display='block';
+  randomQuestion();
+}
+
+function submitAnswer(){
+  const ans=parseInt(document.getElementById('answer').value);
+
+  players.forEach(p=>{
+    if(ans===currentAnswer){
+      p.money+=500;
+      p.score+=10;
+      playSound(true);
+    }else{
+      p.money-=200;
+      playSound(false);
+    }
+  });
+
+  renderPlayers();
+  randomQuestion();
+}
+
+function renderLeaderboard(){
+  const board=document.getElementById('leaderboard');
+  board.innerHTML='';
+
+  players
+  .sort((a,b)=>b.money-a.money)
+  .forEach(p=>{
+    board.innerHTML+=`<div>${p.name} — 💰 ${p.money} | ⭐ ${p.score}</div>`;
+  });
+}
+
+function exportCSV(){
+  let csv="Name,Money,Score\n";
+  players.forEach(p=>{
+    csv+=`${p.name},${p.money},${p.score}\n`;
+  });
+
+  const blob=new Blob([csv]);
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='scores.csv';
+  a.click();
+}
+
+function setTheme(theme){
+  document.body.className='';
+  if(theme==='roblox')document.body.classList.add('theme-roblox');
+  if(theme==='minecraft')document.body.classList.add('theme-minecraft');
+  if(theme==='thai')document.body.classList.add('theme-thai');
+}
+
+function playSound(correct){
+  const ctx=new(AudioContext||webkitAudioContext)();
+  const osc=ctx.createOscillator();
+  osc.connect(ctx.destination);
+  osc.frequency.value=correct?800:200;
+  osc.start();
+  setTimeout(()=>osc.stop(),150);
+}
 </script>
 
 </body>
