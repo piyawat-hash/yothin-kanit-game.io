@@ -5,39 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ดอกเบี้ยทบต้น.io</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-card">
-        <header>
-            <h1>🎮 เกมคำนวณดอกเบี้ย</h1>
-            <p class="subtitle">เลือกโหมดเกมเพื่อเริ่มต้นเรียนรู้</p>
-        </header>
-
-        <section class="input-area">
-            <select id="mode" class="input-field">
-                <option value="simple">ดอกเบี้ยคงต้น (Simple Interest)</option>
-                <option value="compound" selected>ดอกเบี้ยทบต้น (Compound Interest)</option>
-            </select>
-
-            <div class="field-row">
-                <input type="number" id="principal" placeholder="เงินต้น (P)" class="input-field" value="10000">
-                <input type="number" id="rate" placeholder="อัตราดอกเบี้ย (เช่น 0.05)" class="input-field" step="0.01">
-                <input type="number" id="years" placeholder="จำนวนปี (n)" class="input-field">
-            </div>
-
-            <button onclick="generateQuestion()" class="btn btn-random">🎲 สุ่มโจทย์</button>
-        </section>
-
-        <section class="game-display">
-            <div id="formula-display" class="formula-box">สูตรและโจทย์จะปรากฏที่นี่</div>
-            <input type="number" id="user-answer" placeholder="ใส่คำตอบของคุณ" class="input-field answer-input">
-            <button onclick="checkAnswer()" class="btn btn-check">✅ ตรวจคำตอบ</button>
-        </section>
-
-        <footer>
-            <div class="score-container">คะแนนปัจจุบัน: <span id="score-val">0</span></div>
-        </footer>
+        <h1>🎮 เกมคำนวณดอกเบี้ย</h1>
+        <p>เลือกโหมดเกม</p>
+        <select id="mode" class="input-field">
+            <option value="simple">ดอกเบี้ยคงต้น</option>
+            <option value="compound">ดอกเบี้ยทบต้น</option>
+        </select>
+        
+        <input type="number" id="principal" class="input-field" placeholder="เงินต้น (P)" value="10000">
+        <input type="number" id="rate" class="input-field" placeholder="อัตราดอกเบี้ย (เช่น 0.05)">
+        <input type="number" id="years" class="input-field" placeholder="จำนวนปี / งวด (n)">
+        
+        <button onclick="generateQuestion()" class="btn btn-blue">🎲 สุ่มโจทย์</button>
+        
+        <div id="formula-display" class="formula-box">สูตรจะแสดงที่นี่</div>
+        
+        <input type="number" id="user-answer" class="input-field" placeholder="ใส่คำตอบของคุณ">
+        <button onclick="checkAnswer()" class="btn btn-green">✅ ตรวจคำตอบ</button>
+        
+        <p class="score-text">คะแนน: <span id="score">0</span></p>
     </div>
     <script src="script.js"></script>
 </body>
